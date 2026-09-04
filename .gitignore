@@ -1,0 +1,22 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Vercel
+.vercel/
+
+# Local data cache
+data/
+
+# OS & Temp
+.DS_Store
+Thumbs.db
+*.tmp
+.env

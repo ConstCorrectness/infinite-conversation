@@ -1,0 +1,28 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/data/conversations.json",
+      "destination": "https://www.infiniteconversation.com/data/conversations.json.php"
+    },
+    {
+      "source": "/data/:path*",
+      "destination": "https://www.infiniteconversation.com/data/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,HEAD,OPTIONS"
+        }
+      ]
+    }
+  ]
+}

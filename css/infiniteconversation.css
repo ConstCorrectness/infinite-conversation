@@ -1,0 +1,338 @@
+/* Styles for The Infinite Conversation Reproduction */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  height: 100%;
+  background-color: #0d0d0d;
+  color: #f0f0f0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  background-color: rgba(13, 13, 13, 0.95);
+  border-bottom: 1px solid #222;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-brand {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.navbar-menu a {
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.navbar-menu a:hover {
+  color: #fff;
+}
+
+/* Main Layout Wrap */
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: calc(100% - 210px);
+  padding: 0 40px;
+  position: relative;
+}
+
+.speaker-container {
+  flex: 0 0 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.speaker-container:hover {
+  transform: scale(1.04);
+}
+
+.speaker-portrait {
+  width: 220px;
+  height: auto;
+  transition: filter 0.5s ease, transform 0.3s ease;
+  filter: sepia(50%) saturate(0%) opacity(40%);
+}
+
+.speaker-name {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+/* Active Speaker Styling */
+.speaker-active .speaker-name {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Herzog Active: Warm amber/rose tint */
+.speaker-active#hcontainer .speaker-portrait {
+  filter: sepia(100%) hue-rotate(310deg) saturate(350%) opacity(100%);
+}
+
+/* Zizek Active: Electric cyan/blue tint */
+.speaker-active#zcontainer .speaker-portrait {
+  filter: sepia(100%) hue-rotate(190deg) saturate(500%) opacity(100%);
+}
+
+/* Subtitles Area */
+#subcontainer {
+  flex: 1;
+  max-width: 720px;
+  margin: 0 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+#subtitles {
+  font-size: 1.55rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: #888;
+  transition: opacity 0.2s ease;
+}
+
+.sub-cue {
+  display: inline;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sub-active {
+  background-color: #ffd700;
+  color: #000;
+  font-weight: 400;
+}
+
+.sub-past {
+  background-color: rgba(255, 235, 130, 0.2);
+  color: #ddd;
+}
+
+/* Footer / Visualizer Area */
+.footer-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(to top, #000 70%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#subcontainerf {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.play-pause-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+/* Controls info */
+.controls-hint {
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* Overlay Modal (Initial Play Prompt) */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+
+#overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#overlay-inner {
+  max-width: 580px;
+  padding: 44px;
+  background-color: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+#overlay-inner h2 {
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+#overlay-inner p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+#close-btn {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 12px 36px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#close-btn:hover {
+  background-color: #e2e2e2;
+  transform: scale(1.03);
+}
+
+/* Generic Modal for About / FAQ */
+.info-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-modal.hidden {
+  display: none;
+}
+
+.info-modal-content {
+  background: #181818;
+  border: 1px solid #333;
+  border-radius: 10px;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 36px;
+  position: relative;
+  color: #ccc;
+  line-height: 1.7;
+}
+
+.info-modal-content h3 {
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.info-modal-content p {
+  margin-bottom: 14px;
+}
+
+.info-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.info-modal-close:hover {
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .wrap {
+    flex-direction: column;
+    height: auto;
+    padding-top: 20px;
+  }
+  .speaker-container {
+    flex: 0 0 auto;
+  }
+  .speaker-portrait {
+    width: 130px;
+  }
+  #subtitles {
+    font-size: 1.2rem;
+  }
+}
