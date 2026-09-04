@@ -20,3 +20,5 @@ data/
 Thumbs.db
 *.tmp
 .env
+
+.vercel
